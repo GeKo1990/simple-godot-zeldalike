@@ -1,6 +1,7 @@
-[gd_scene load_steps=43 format=3 uid="uid://tq4qiqks4436"]
+[gd_scene load_steps=44 format=3 uid="uid://tq4qiqks4436"]
 
 [ext_resource type="Texture2D" uid="uid://qrblygadp4ba" path="res://assets/characters/slime.png" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://bsmekga5u7lbj" path="res://scripts/enemy.gd" id="1_md0e3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ekh6n"]
 atlas = ExtResource("1_7p1mj")
@@ -307,12 +308,13 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7p1mj"]
-radius = 53.0
+radius = 92.021736
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 6.0
 
 [node name="enemy" type="CharacterBody2D"]
+script = ExtResource("1_md0e3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -6)
@@ -329,3 +331,8 @@ shape = SubResource("CircleShape2D_7p1mj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_md0e3")
+
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
