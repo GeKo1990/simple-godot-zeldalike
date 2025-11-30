@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgvb8iii0aofe"]
+
+[ext_resource type="PackedScene" uid="uid://bkikwiw5croth" path="res://scenes/Player.tscn" id="1_elqb8"]
+[ext_resource type="Script" uid="uid://dsg4h1e8fvfu6" path="res://scripts/main.gd" id="1_rvslj"]
+
+[node name="Node" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_rvslj")
+
+[node name="LevelRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="player" parent="." instance=ExtResource("1_elqb8")]
+position = Vector2(582, 329)

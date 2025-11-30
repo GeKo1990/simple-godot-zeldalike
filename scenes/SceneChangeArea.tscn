@@ -1,12 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://dcwk3u4lhnbri"]
 
-[ext_resource type="Script" uid="uid://donehd51ip4bs" path="res://scripts/SceneChangeArea.gd" id="1_psn32"]
+[ext_resource type="Script" uid="uid://donehd51ip4bs" path="res://scripts/scenechangearea.gd" id="1_psn32"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0e832"]
-size = Vector2(16, 19.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_psn32"]
+size = Vector2(32, 32)
 
 [node name="ScreenChangeArea" type="Area2D"]
+collision_layer = 2048
+collision_mask = 2
 script = ExtResource("1_psn32")
+target_scene = null
+target_spawn_point = null
+one_shot = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_0e832")
+shape = SubResource("RectangleShape2D_psn32")

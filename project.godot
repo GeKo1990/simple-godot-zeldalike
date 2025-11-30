@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="simple-zelda-like"
-run/main_scene="uid://bxbem4x075tn6"
+run/main_scene="uid://cgvb8iii0aofe"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://scripts/gamemanager.gd"
 
 [input]
 
