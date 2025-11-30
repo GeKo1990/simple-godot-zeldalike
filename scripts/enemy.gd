@@ -8,8 +8,8 @@ const WANDER_RADIUS       := 64.0
 const ARRIVE_THRESHOLD    := 4.0
 
 const ATTACK_RANGE        := 48.0      # how close before we jump (center-to-center)
-const ATTACK_COOLDOWN_MS  := 800       # time between jumps in ms
-const ATTACK_SPEED        := 140.0
+const ATTACK_COOLDOWN_MS  := 1000     # time between jumps in ms
+const ATTACK_SPEED        := 80
 const ATTACK_STOP_DISTANCE := 4.0      # how close to target before we stop
 
 const MAX_HEALTH          := 100
@@ -178,12 +178,11 @@ func _enter_attack_state() -> void:
 func _enter_dead_state() -> void:
 	velocity = Vector2.ZERO
 	anim.play("death")
-	hitbox.disabled = true
-	detection_area.monitoring = false
-	detection_area.monitorable = false
-	hurtbox.monitoring = false
-	hurtbox.monitorable = false
-	# later: queue_free() after death anim, if you want
+	hitbox.set_deferred("disabled", true)
+	detection_area.set_deferred("monitorable", false)
+	detection_area.set_deferred("monitoring", false)
+	hurtbox.set_deferred("monitorable", false)
+	hurtbox.set_deferred("monitoring", false)
 
 # -------------------------------------------------------------------
 # COMMON MOVEMENT / ANIMATION HELPERS

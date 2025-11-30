@@ -435,6 +435,7 @@ offset = Vector2(0, -20)
 metadata/_edit_lock_ = true
 
 [node name="SwordHitbox" type="Area2D" parent="AnimatedSprite2D" groups=["player_hitbox"]]
+visible = false
 z_index = 100
 position = Vector2(-29, -5)
 collision_layer = 8
