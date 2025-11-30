@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bq72pgvsi22yr" path="res://assets/characters/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dburs4hkuegik" path="res://scripts/player.gd" id="1_g2els"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
+radius = 5.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hax0n"]
 atlas = ExtResource("1_3vyb7")
 region = Rect2(0, 384, 48, 48)
@@ -222,7 +225,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cs1tg")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_back",
 "speed": 5.0
 }, {
@@ -239,7 +242,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hhpqf")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_front",
 "speed": 5.0
 }, {
@@ -256,7 +259,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4gjji")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_side",
 "speed": 5.0
 }, {
@@ -413,19 +416,59 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
-radius = 5.0
-
 [node name="player" type="CharacterBody2D" groups=["player"]]
 y_sort_enabled = true
+collision_layer = 2
 script = ExtResource("1_g2els")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(29, 5)
-sprite_frames = SubResource("SpriteFrames_smehm")
-animation = &"walk_side"
-offset = Vector2(0, -20)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(29, -2)
+position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_g2els")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+sprite_frames = SubResource("SpriteFrames_smehm")
+animation = &"idle_front"
+offset = Vector2(0, -20)
+metadata/_edit_lock_ = true
+
+[node name="SwordHitbox" type="Area2D" parent="AnimatedSprite2D" groups=["player_hitbox"]]
+z_index = 100
+position = Vector2(-29, -5)
+collision_layer = 8
+collision_mask = 16
+monitoring = false
+monitorable = false
+metadata/_edit_lock_ = true
+
+[node name="SlashSideRight" type="CollisionPolygon2D" parent="AnimatedSprite2D/SwordHitbox"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(33.222908, -1.2197304)
+polygon = PackedVector2Array(2.777092, -5.7802696, 7.777092, -5.7802696, 9.777092, -4.7802696, 12.777092, -2.7802696, 13.777092, -1.7802696, 13.777092, 1.2197304, 12.777092, 3.2197304, 10.777092, 5.2197304, 7.777092, 7.2197304, 4.777092, 7.2197304, -1.222908, 8.21973, -6.222908, 7.2197304, -11.222908, 6.2197304, -16.222908, 3.2197304, -20.222908, -1.7802696, -20.222908, -3.7802696, -16.222908, -3.7802696, -8.222908, 1.2197304, -2.222908, 3.2197304, 4.777092, 1.2197304, 6.777092, -1.7802696, 2.777092, -4.7802696)
+disabled = true
+
+[node name="SlashSideLeft" type="CollisionPolygon2D" parent="AnimatedSprite2D/SwordHitbox"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(33.222908, -1.2197304)
+polygon = PackedVector2Array(3.777092, -1.7802696, 5.777092, -2.7802696, 8.777092, -3.7802696, 11.777092, -3.7802696, 11.777092, -0.7802696, 9.777092, 1.2197304, 7.777092, 3.2197304, 5.777092, 4.2197304, 0.777092, 6.2197304, -2.222908, 7.2197304, -13.222908, 7.2197304, -19.222908, 6.2197304, -21.222908, 3.2197304, -22.222908, 1.2197304, -22.222908, -1.7802696, -21.222908, -3.7802696, -16.222908, -5.7802696, -11.222908, -5.7802696, -11.222908, -4.7802696, -14.222908, -2.7802696, -15.222908, -0.7802696, -11.222908, 2.2197304, -2.222908, 3.2197304, -1.222908, 2.2197304, 0.777092, 0.21973038, 2.777092, -0.7802696)
+disabled = true
+
+[node name="SlashFront" type="CollisionPolygon2D" parent="AnimatedSprite2D/SwordHitbox"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(33, -1)
+polygon = PackedVector2Array(2.777092, 4.2197304, 4.777092, 3.2197304, 6, 2, 7, 1, 8, 1, 8, 5, 7, 7, 6, 8, 3.777092, 9.21973, 1.777092, 10.21973, -1.222908, 10.21973, -4.222908, 10.21973, -6, 10, -8, 9, -10, 7, -11, 5, -11, -1, -10, -1, -10, 2, -8, 2, -6, 3, -4, 4, -3, 5, -2.222908, 5.2197304, 0.777092, 5.2197304)
+disabled = true
+
+[node name="SlashBack" type="CollisionPolygon2D" parent="AnimatedSprite2D/SwordHitbox"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(28.480442, -14.4676285)
+polygon = PackedVector2Array(9.519558, 2.4676285, 9.519558, 8.4676285, 7.519558, 6.4676285, 2.519558, 4.4676285, -0.48044205, 3.4676285, -4.480442, 3.4676285, -6.480442, 4.4676285, -8.480442, 6.4676285, -9.480442, 6.4676285, -9.480442, 3.4676285, -8.480442, 1.4676285, -7.480442, 0.46762848, -5.480442, -1.5323715, -3.480442, -2.5323715, 0.51955795, -2.5323715, 4.519558, -2.5323715, 6.519558, -1.5323715, 8.519558, 0.46762848)
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="sprite_frames_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_sprite_frames_changed"]
