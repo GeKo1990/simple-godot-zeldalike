@@ -4,7 +4,6 @@ var tile_map: TileMapLayer
 
 func set_tilemap(new_tile_map: TileMapLayer) -> void:
 	tile_map = new_tile_map
-	print("set tile map:", tile_map)
 	_update_limits()
 
 func _update_limits() -> void:

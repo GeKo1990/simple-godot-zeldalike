@@ -3,11 +3,11 @@ extends Node2D
 @onready var level_root: Node2D = $LevelRoot
 
 @onready var player: CharacterBody2D = $player
-@onready var camera: Camera2D = $player/Camera2D    # adjust path if needed
+@onready var camera: Camera2D = $player/Camera2D
 
 func _ready() -> void:
 	GameManager.main = self
-	GameManager.change_level("res://scenes/levels/Woodlands_1.tscn", "SpawnLeft")
+	GameManager.change_level("res://scenes/levels/Start.tscn", "Spawn")
 
 func load_level(scene_path: String, spawn_point_name: String = "") -> void:
 	for child in level_root.get_children():
@@ -30,7 +30,6 @@ func load_level(scene_path: String, spawn_point_name: String = "") -> void:
 	if tile_map and camera:
 		camera.set_tilemap(tile_map)
 
-	# Move player to spawn if provided
 	if spawn_point_name != "":
 		var spawn := level.get_node_or_null(spawn_point_name)
 		if spawn:
