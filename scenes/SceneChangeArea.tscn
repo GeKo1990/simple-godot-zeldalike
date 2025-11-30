@@ -9,9 +9,6 @@ size = Vector2(32, 32)
 collision_layer = 2048
 collision_mask = 2
 script = ExtResource("1_psn32")
-target_scene = null
-target_spawn_point = null
-one_shot = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_psn32")

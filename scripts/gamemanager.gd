@@ -10,7 +10,7 @@ var player_stats := {
 
 func change_level(scene_path: String, spawn_point_name: String = "") -> void:
 	current_level_path = scene_path
-	if main and main.has_method("load_level"):
-		main.load_level(scene_path, spawn_point_name)
+	if main and main.has_method("change_level_smooth"):
+		main.change_level_smooth(scene_path, spawn_point_name)
 	else:
-		push_error("GameManager: main is not set or has no load_level()")
+		push_error("GameManager: main is not set or has no change_level_smooth()")
