@@ -1,16 +1,23 @@
 extends Node2D
 
 @onready var level_root: Node2D = $LevelRoot
-
 @onready var player: CharacterBody2D = $player
 @onready var camera: Camera2D = $player/Camera2D
 @onready var fade_rect: ColorRect = $CanvasLayer/FadeRect
+@onready var heart_bar: Control = $CanvasLayer/HUD/HeartBar
 
 var _is_transitioning: bool = false
 
 func _ready() -> void:
 	GameManager.main = self
+	
+	player.health_changed.connect(_on_player_health_changed)
+	_on_player_health_changed(player.health, player.max_health)
+	
 	GameManager.change_level("res://scenes/levels/Start.tscn", "Spawn")
+	
+func _on_player_health_changed(current: int, max_health: int) -> void:
+	heart_bar.set_health(current, max_health)
 
 func load_level(scene_path: String, spawn_point_name: String = "") -> void:
 	for child in level_root.get_children():

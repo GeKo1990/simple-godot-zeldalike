@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c72l7huj4ddqr"]
+
+[ext_resource type="Script" uid="uid://hqjay8p2wbk" path="res://scripts/heart_bar.gd" id="1_hcv8r"]
+[ext_resource type="Texture2D" uid="uid://b6nt0f466p2w4" path="res://assets/ui/heart_full.tres" id="2_has8j"]
+[ext_resource type="Texture2D" uid="uid://dh0jjiduk3fvq" path="res://assets/ui/heart_empty.tres" id="2_oj85r"]
+[ext_resource type="Texture2D" uid="uid://cyyijmagbiu7" path="res://assets/ui/heart_half.tres" id="3_g8rta"]
+
+[node name="HeartBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hcv8r")
+tex_heart_empty = ExtResource("2_oj85r")
+tex_heart_half = ExtResource("3_g8rta")
+tex_heart_full = ExtResource("2_has8j")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HeartTemplate" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("2_has8j")
+stretch_mode = 4

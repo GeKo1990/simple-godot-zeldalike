@@ -2,12 +2,27 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 
+signal health_changed(current: int, max: int)
+signal died
+
 var current_direction: String = "front" # "front", "back", "side"
 var is_dead: bool = false
 var is_attacking: bool = false
 var facing_left: bool = false
 
-var health: int = 100
+@export var max_health: int = 6:
+	set(value):
+		max_health = max(value, 1)
+		health = clamp(health, 0, max_health)
+		health_changed.emit(health, max_health)
+
+@export var health: int = 6:
+	set(value):
+		health = clamp(value, 0, max_health)
+		health_changed.emit(health, max_health)
+
+		if health == 0 and not is_dead:
+			_die()
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -16,6 +31,9 @@ var health: int = 100
 @onready var slash_side_left: CollisionPolygon2D = $AnimatedSprite2D/SwordHitbox/SlashSideLeft
 @onready var slash_front: CollisionPolygon2D = $AnimatedSprite2D/SwordHitbox/SlashFront
 @onready var slash_back: CollisionPolygon2D = $AnimatedSprite2D/SwordHitbox/SlashBack
+
+func _ready() -> void:
+	health_changed.emit(health, max_health)
 
 func _physics_process(_delta: float) -> void:
 	if is_dead:
@@ -84,13 +102,13 @@ func _movement() -> void:
 				anim.flip_h = false
 				anim.play("idle_front")
 			"back":
-				anim.flip_h = false				
+				anim.flip_h = false
 				anim.play("idle_back")
 			"side":
 				anim.flip_h = facing_left
 				anim.play("idle_side")
 			_:
-				anim.flip_h = false	
+				anim.flip_h = false
 				anim.play("idle_front") # fallback
 			
 func _disable_hitbox() -> void:
@@ -140,3 +158,20 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 		sword_hitbox.monitoring = true
 		sword_hitbox.visible = true
 		
+func _take_damage(amount: int) -> void:
+	if is_dead:
+		return
+	health -= amount
+	
+func _heal(amount: int) -> void:
+	if is_dead:
+		return
+	health += amount
+	
+func _die():
+	is_dead = true
+	anim.play("death")
+	died.emit()
+	
+func _on_hurt_box_area_entered(_area: Area2D) -> void:
+	_take_damage(1)

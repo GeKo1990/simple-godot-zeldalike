@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://tq4qiqks4436"]
+[gd_scene load_steps=55 format=3 uid="uid://tq4qiqks4436"]
 
 [ext_resource type="Texture2D" uid="uid://qrblygadp4ba" path="res://assets/characters/slime.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://bsmekga5u7lbj" path="res://scripts/enemy.gd" id="1_md0e3"]
@@ -394,6 +394,9 @@ radius = 80.024994
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ra3w"]
 radius = 7.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_55jtl"]
+radius = 5.0
+
 [node name="enemy" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_md0e3")
@@ -433,8 +436,15 @@ shape = SubResource("CircleShape2D_4ra3w")
 debug_color = Color(0.4188975, 0.60466665, 1.92523e-07, 0.41960785)
 metadata/_edit_lock_ = true
 
-[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_area_entered"]
-[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_area_exited"]
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_55jtl")
+debug_color = Color(0.9851988, 0, 0.34613594, 0.41960785)
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -159,12 +159,6 @@ sources/1 = SubResource("TileSetAtlasSource_4mrxx")
 [node name="woodlands_1" type="Node2D"]
 y_sort_enabled = true
 
-[node name="ScreenChangeArea" parent="." instance=ExtResource("5_7ei4h")]
-position = Vector2(610, 119)
-size = Vector2(32, 120)
-target_scene = "uid://bxbem4x075tn6"
-target_spawn_point = "SpawnLeft"
-
 [node name="ScreenChangeArea2" parent="." instance=ExtResource("5_7ei4h")]
 position = Vector2(304, 409)
 size = Vector2(60, 32)
@@ -207,3 +201,9 @@ text = "Slash with
 Space"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ScreenChangeArea" parent="." instance=ExtResource("5_7ei4h")]
+position = Vector2(624, 119)
+size = Vector2(32, 120)
+target_scene = "uid://bxbem4x075tn6"
+target_spawn_point = "SpawnLeft"

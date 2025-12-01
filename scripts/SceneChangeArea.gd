@@ -40,7 +40,6 @@ func _update_shape() -> void:
 		var rect := collision.shape as RectangleShape2D
 		rect.extents = size * 0.5
 
-
 # --- GAMEPLAY: SCENE CHANGE LOGIC --------------------------------------------
 
 @export_file("*.tscn") var target_scene: String
@@ -49,7 +48,6 @@ func _update_shape() -> void:
 
 var _already_triggered: bool = false
 
-
 func _on_body_entered(body: Node2D) -> void:
 	if Engine.is_editor_hint():
 		return
@@ -57,6 +55,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if not body.is_in_group("player"):
 		return
 
+	print("triggering!")
 	if one_shot and _already_triggered:
 		return
 

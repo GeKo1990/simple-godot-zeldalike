@@ -37,7 +37,8 @@ var player: Node2D = null   # set from DetectionArea
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var detection_area: Area2D = $DetectionArea
 @onready var hurtbox: Area2D = $Hurtbox
-@onready var hitbox: CollisionShape2D = $CollisionShape2D # slime body collision
+@onready var hitbox: Area2D = $Hitbox
+@onready var body_collision: CollisionShape2D = $CollisionShape2D # slime body collision
 
 # -------------------------------------------------------------------
 # LIFE CYCLE
@@ -178,11 +179,13 @@ func _enter_attack_state() -> void:
 func _enter_dead_state() -> void:
 	velocity = Vector2.ZERO
 	anim.play("death")
-	hitbox.set_deferred("disabled", true)
+	body_collision.set_deferred("disabled", true)
 	detection_area.set_deferred("monitorable", false)
 	detection_area.set_deferred("monitoring", false)
 	hurtbox.set_deferred("monitorable", false)
 	hurtbox.set_deferred("monitoring", false)
+	hitbox.set_deferred("monitorable", false)
+	hitbox.set_deferred("monitoring", false)
 
 # -------------------------------------------------------------------
 # COMMON MOVEMENT / ANIMATION HELPERS
@@ -241,10 +244,8 @@ func _on_detection_area_body_exited(body: Node2D) -> void:
 # -------------------------------------------------------------------
 # SIGNALS: HURTBOX (DAMAGE)
 # -------------------------------------------------------------------
-func _on_hurtbox_area_entered(area: Area2D) -> void:
-	print("hit!")
-	if area.is_in_group("player_hitbox"):
-		_take_dmg(100)
+func _on_hurtbox_area_entered(_area: Area2D) -> void:
+	_take_dmg(100)
 
 func _take_dmg(amount: int) -> void:
 	if state == State.DEAD:
@@ -255,5 +256,3 @@ func _take_dmg(amount: int) -> void:
 
 	if health <= 0:
 		_set_state(State.DEAD)
-
-# -------------------------------------------------------------------

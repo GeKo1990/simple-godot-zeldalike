@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b6nt0f466p2w4"]
+
+[ext_resource type="Texture2D" uid="uid://8xmvdcak1gxn" path="res://assets/tilesets/ui/PAUIE16-Icons.png" id="1_kwum4"]
+
+[resource]
+atlas = ExtResource("1_kwum4")
+region = Rect2(128, 0, 16, 16)
